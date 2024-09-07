@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-root', //tag html usada para referenciar este component
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
