@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Course } from '../model/course';
 import { Observable } from 'rxjs';
-import { first, take, tap } from 'rxjs/operators';
+import { delay, first, take, tap } from 'rxjs/operators';
 
 //this annotation indicate that we want a instance of this class automatic
 @Injectable({
@@ -11,7 +11,7 @@ import { first, take, tap } from 'rxjs/operators';
   //define the acessebilty os this instance, root
 })
 export class CoursesService {
-  private readonly API = '/assets/cursos.json';
+  private readonly API = '/assets/cursoss.json';
 
   //dependecy injection
   constructor(private httpClient: HttpClient) {
@@ -20,8 +20,9 @@ export class CoursesService {
 
   list(): Observable<Course[]> {
     return this.httpClient.get<Course[]>(this.API).pipe(
-      //first(), obtem a primeira resposta do servidor e finalizar a incrição
-      //consulta um determinado número de vezes take(1),
+      first(), //obtém a primeira resposta do servidor e finalizar a incrição
+      //take(1), consulta um determinado número de vezes
+      delay(10), //o valor é passado em ms
       tap(courses => console.log(courses))
     );
     //o pipe habilita a manipulação da resposta
