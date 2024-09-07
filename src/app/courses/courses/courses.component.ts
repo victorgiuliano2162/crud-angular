@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from '../model/course';
 import { CoursesService } from '../services/courses.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-courses',
@@ -10,7 +11,8 @@ import { Observable } from 'rxjs';
 })
 export class CoursesComponent implements OnInit {
 
-  courses: Observable<Course[]>;
+  courses$: Observable<Course[]>;
+  //dolar sign indica
   displayedColumns = ['name', 'category'];
 
   //coursesService: CoursesService;
@@ -20,12 +22,19 @@ export class CoursesComponent implements OnInit {
     //this.courses = [];
     //é possível inicializar a variável tanto no construtor quanto no ngOnInit ou na declaração e não há diferença
     //this.coursesService = new CoursesService();
-    this.courses = this.coursesService.list();
+    this.courses$ = this.coursesService.list()
+    .pipe(
+      catchError(error => {
+        console.log(error)
+        return of([])
+      })
+      //catchError must return an observable
+      //the 'of' automatic create an observable
+    );
   }
 
   ngOnInit(): void {
     //renderiza somente quando o componente é renderizado
-    this.courses = this.coursesService.list();
   }
 
 }
