@@ -11,7 +11,7 @@ import { delay, first, take, tap } from 'rxjs/operators';
   //define the acessebilty os this instance, root
 })
 export class CoursesService {
-  private readonly API = '/assets/cursoss.json';
+  private readonly API = '/assets/cursos.json';
 
   //dependecy injection
   constructor(private httpClient: HttpClient) {
