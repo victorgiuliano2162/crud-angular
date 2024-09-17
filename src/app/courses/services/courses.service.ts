@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Course } from '../model/course';
 import { Observable } from 'rxjs';
-import { delay, first, take, tap } from 'rxjs/operators';
+import { delay, first, tap } from 'rxjs/operators';
 
 //this annotation indicate that we want a instance of this class automatic
 @Injectable({

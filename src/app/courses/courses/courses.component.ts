@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
@@ -14,13 +15,15 @@ import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/err
 export class CoursesComponent implements OnInit {
   courses$: Observable<Course[]>;
   //dolar sign indica
-  displayedColumns = ['name', 'category'];
+  displayedColumns = ['name', 'category', 'actions'];
+  //Todas as colunas precisam ser declaradas aqui!!!!
 
   //coursesService: CoursesService;
 
   constructor(
     private coursesService: CoursesService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router,
   ) {
     //this.courses = [];
     //é possível inicializar a variável tanto no construtor quanto no ngOnInit ou na declaração e não há diferença
@@ -45,4 +48,9 @@ export class CoursesComponent implements OnInit {
   ngOnInit(): void {
     //renderiza somente quando o componente é renderizado
   }
+
+  onAdd() {
+    console.log("onAdd");
+    this.router.navigate(['new'], {relativeTo: ''});
+    }
 }
