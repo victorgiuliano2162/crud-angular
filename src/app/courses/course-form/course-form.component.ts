@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CoursesService } from '../services/courses.service';
 
 @Component({
   selector: 'app-course-form',
@@ -10,7 +12,10 @@ export class CourseFormComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+    private service: CoursesService,
+    private router: Router
+  ) {
     this.form = this.formBuilder.group({
       name:[null],
       category: [null],
@@ -21,11 +26,13 @@ export class CourseFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("Subimitou course form")
+    this.service.save(this.form.value).subscribe(data => console.log(data));
+    //console.log(this.form.value);
   }
 
   onCancel() {
-    console.log("Concelou course form")
+    console.log("Concelou course form");
+    this.router.navigate([''])
   }
 
 }
