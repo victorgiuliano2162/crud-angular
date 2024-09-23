@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Course } from '../model/course';
 import { Observable } from 'rxjs';
-import { first, tap } from 'rxjs/operators';
+import { delay, first, tap } from 'rxjs/operators';
 
 //this annotation indicate that we want a instance of this class automatic
 @Injectable({
@@ -22,10 +22,14 @@ export class CoursesService {
     return this.httpClient.get<Course[]>(this.API).pipe(
       first(), //obtém a primeira resposta do servidor e finalizar a incrição
       //take(1), consulta um determinado número de vezes
-      //delay(10), //o valor é passado em ms
+      delay(500), //o valor é passado em ms
       tap(courses => console.log(courses))
     );
     //o pipe habilita a manipulação da resposta
+  }
+
+  loadById(id: string) {
+    return this.httpClient.get<Course>(`${this.API}/${id}`)
   }
 
     save(record: Partial<Course>) {
