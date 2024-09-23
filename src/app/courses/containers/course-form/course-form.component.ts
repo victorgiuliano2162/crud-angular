@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NonNullableFormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesService } from '../../services/courses.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
+import { Course } from '../../model/course';
 
 @Component({
   selector: 'app-course-form',
@@ -12,6 +13,7 @@ import { Location } from '@angular/common';
 })
 export class CourseFormComponent implements OnInit {
   form = this.formBuilder.group({
+    _id: [''],
     name: [''],
     category: [''],
   });
@@ -21,10 +23,19 @@ export class CourseFormComponent implements OnInit {
     private service: CoursesService,
     private router: Router,
     private snackBar: MatSnackBar,
-    private localtion: Location
+    private localtion: Location,
+    private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const course: Course = this.route.snapshot.data['course']; //same name as used in resolver
+    this.form.setValue({
+      _id: course._id,
+      name: course.name,
+      category: course.category
+    });
+  }
+
 
   onSubmit() {
     this.service.save(this.form.value).subscribe(
