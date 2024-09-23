@@ -28,7 +28,8 @@ export class CoursesService {
     //o pipe habilita a manipulação da resposta
   }
 
-    save(record: Course) {
+    save(record: Partial<Course>) {
       return this.httpClient.post<Course>(this.API, record).pipe(first());
     }
+    //Partial tag allow few fields of a object
 }
