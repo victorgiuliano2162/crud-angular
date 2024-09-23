@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CourseFormComponent } from './courses/course-form/course-form.component';
+import { CourseFormComponent } from './courses/containers/course-form/course-form.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'courses' },
@@ -10,8 +10,8 @@ const routes: Routes = [
       import('./courses/courses.module').then((m) => m.CoursesModule),
   },
   //{
-    //path: 'new',
-    //component: CourseFormComponent,
+  //path: 'new',
+  //component: CourseFormComponent,
   //},
 ];
 
