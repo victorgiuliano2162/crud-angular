@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { NonNullableFormBuilder  } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CoursesService } from '../services/courses.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -11,22 +11,22 @@ import { Location } from '@angular/common';
   styleUrls: ['./course-form.component.scss'],
 })
 export class CourseFormComponent implements OnInit {
-  form: FormGroup;
+
+  form = this.formBuilder.group({
+    name: [''],
+    category: ['']
+  });
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: NonNullableFormBuilder,
     private service: CoursesService,
     private router: Router,
     private snackBar: MatSnackBar,
     private localtion: Location
   ) {
-    this.form = this.formBuilder.group({
-      name: [null],
-      category: [null],
-    });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {  }
 
   onSubmit() {
     this.service.save(this.form.value).subscribe(
